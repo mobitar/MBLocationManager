@@ -11,4 +11,5 @@
 - (CGFloat)distanceInMilesFromCurrentLocationToLocation:(CLLocationCoordinate2D)locationCoordinates;
 - (CGFloat)minutesForDistance:(CGFloat)distanceInMiles MPH:(CGFloat)speed;
 - (void)openMapsForLocation:(CLLocationCoordinate2D)coordinate name:(NSString*)name;
+- (void)beginTrackingLocation;
 @end

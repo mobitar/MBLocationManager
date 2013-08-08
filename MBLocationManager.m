@@ -20,9 +20,13 @@
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.distanceFilter = 400;
-        [_locationManager startUpdatingLocation];
     }
     return self;
+}
+
+- (void)beginTrackingLocation
+{
+    [_locationManager startUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -47,6 +51,11 @@
     CLLocation *newLocation = locations.lastObject;
     self.currentLocation = newLocation;
 }
+
+//- (void)setCurrentLocation:(CLLocation *)currentLocation
+//{
+//    _currentLocation = currentLocation;
+//}
 
 - (CGFloat)distanceInMilesFromCurrentLocationToLocation:(CLLocationCoordinate2D)locationCoordinates
 {
