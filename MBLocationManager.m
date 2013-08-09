@@ -52,10 +52,10 @@
     self.currentLocation = newLocation;
 }
 
-//- (void)setCurrentLocation:(CLLocation *)currentLocation
-//{
-//    _currentLocation = currentLocation;
-//}
+- (void)setCurrentLocation:(CLLocation *)currentLocation
+{
+    _currentLocation = currentLocation;
+}
 
 - (CGFloat)distanceInMilesFromCurrentLocationToLocation:(CLLocationCoordinate2D)locationCoordinates
 {
@@ -83,6 +83,19 @@
         MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem] launchOptions:launchOptions];
     }
+}
+
+- (void)getCoordinatesForAddress:(NSString*)address completion:(void(^)(CLLocationCoordinate2D coords, NSError *error))completionBlock
+{
+    CLGeocoder *coder = [[CLGeocoder alloc] init];
+    [coder geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error) {
+        if(error) {
+            completionBlock(CLLocationCoordinate2DMake(0, 0), error);
+            return;
+        }
+        CLPlacemark *placemark = placemarks.lastObject;
+        completionBlock(placemark.location.coordinate, nil);
+    }];
 }
 
 @end
